@@ -29,7 +29,6 @@ class Article(db.Model):
 				cl.default = classifys[c]
 				db.session.add(cl)
 		db.session.commit()
-	
 
 class Post(db.Model):
 	__tablename__ = 'posts'
@@ -39,6 +38,9 @@ class Post(db.Model):
 	timestamp = db.Column(db.DateTime,index=True,default=datetime.utcnow)
 	classify_id = db.Column(db.Integer,db.ForeignKey('articles.id'))
 	author_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+	ifenclosure = db.Column(db.Boolean,default=False)
+	enclosure = db.Column(db.Text)
+	enclosurestore = db.Column(db.Text)
 
 class Role(db.Model):
 	__tablename__='roles'

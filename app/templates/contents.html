@@ -1,0 +1,14 @@
+{% extends "bases.html" %}
+{% block body %}
+{{ super() }}
+<div class="center_content1">
+        <h2>CONTENT</h2>
+             <div class="home_news">
+                {% for post in posts %}
+		<a href="{{ url_for('main.page',pageid=post.id) }}"><font size="+0.5">{{ post.title }}</font></a>
+		{% endfor %}
+                </div>
+    
+        
+</div>
+{% endblock %}

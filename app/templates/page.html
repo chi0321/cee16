@@ -1,5 +1,5 @@
 {% extends "bases.html" %}
-{% block head %}3
+{% block head %}
 {{ moment.include_jquery() }}
 {{ moment.include_moment() }}
 {{ moment.lang("zh-CN") }}
@@ -18,13 +18,14 @@
 		<p><center>writer:{{ post.author.name }}<center></p>
 		{% if current_user.is_administrator() %}
 		<a href="{{ url_for('.edit_admin',id=post.id) }}"><span class="label label=danger">Edit [Admin]</span></a>
+		<a href="{{ url_for('.delete',id=post.id) }}"><span class="label label=danger">Delete [Admin]</span></a>
 		{% endif %}
-		<p>
-		<font size="+1">
-		{{ post.body|safe }}
-		</font>
-		</p>
-            </div> 
+</div><div class="center_content1"><li id="page">{{ post.body|safe }}
+		{% if post.ifenclosure %}
+		<a href="{{  url_for('static', filename=post.enclosure) }}"><span class="label label=danger">附件:{{ post.enclosure }}</span></a>
+		{% endif %}
+		</div>
     </div>
 </div>
 {% endblock %}
+

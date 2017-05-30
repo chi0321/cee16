@@ -8,34 +8,61 @@ from ..modles import User,Role,Post,Permission
 from .. import db,moment
 import random
 
+@main.route('/upload', methods=['GET', 'POST'])
+def upload(pageid):
+	post = Post.query.filter_by(id=pageid).first()
+	if request.method == 'GET':
+		return render_template('upload.html')
+	elif request.method == 'POST':
+		f = request.files['file']
+		fname = f.filename
+		post.enclosurestore=fname
+		db.session.add(post)
+		db.session.commit()
+		f.save('./static/'+fname)	
+	return redirect(url_for('.index'))
 @main.route('/edit',methods=['GET','POST'])
 @login_required
 @admin_required
 def edit_admin():
 	id = request.args.get('id')
-	post = None
+	user = None
 	if id is not None:
-		post = Post.query.get(id)
-	else:
-		post = Post()
-	form = EditForm(post)
+		user = Post.query.get(id)
+	form = EditForm(user)
 	if form.validate_on_submit():
-		post.title=form.title.data
-		post.body=form.ckeditor.data
-		post.author=current_user._get_current_object()
-		post.classify_id=form.classify.data
+		post = Post(title=form.title.data,body=form.ckeditor.data,author=current_user._get_current_object(),classify_id=form.classify.data)
+		#if form.enclosure.data is not None:
+		#	post.ifenclosure = True
 		db.session.add(post)
 		db.session.commit()
+		#if post.ifenclosure:
+		#	return redirect(url_for('.upload',pageid=post.id))
 		posts = Post.query.filter_by(classify_id=3).order_by(Post.timestamp.desc()).all()
 		news = Post.query.filter_by(classify_id=2).order_by(Post.timestamp.desc()).all()
 		essays = Post.query.filter_by(classify_id=1).order_by(Post.timestamp.desc()).all()
 		writings = Post.query.filter_by(classify_id=4).order_by(Post.timestamp.desc()).all()
 		return redirect(url_for('.index',posts = posts,news=news,essays=essays,writings=writings))
-	if post is not None:
-		form.ckeditor.data = post.body
-		form.title.data = post.title
-		form.classify.data = post.classify_id
+	if user is not None:
+		form.ckeditor.data = user.body
+		form.title.data = user.title
+		form.classify.data = user.classify_id
 	return render_template('admin/edit.html',form=form)
+@main.route('/delete',methods=['GET'])
+@login_required
+@admin_required
+def delete():
+	id = request.args.get('id')
+	user = None
+	if id is not None:
+		user = Post.query.get(id)
+	db.session.delete(user)
+	db.session.commit()
+	posts = Post.query.filter_by(classify_id=3).order_by(Post.timestamp.desc()).all()
+	news = Post.query.filter_by(classify_id=2).order_by(Post.timestamp.desc()).all()
+	essays = Post.query.filter_by(classify_id=1).order_by(Post.timestamp.desc()).all()
+	writings = Post.query.filter_by(classify_id=4).order_by(Post.timestamp.desc()).all()
+	return render_template('index.html',posts = posts,news=news,essays=essays,writings=writings)
 @main.route('/ckupload/', methods=['POST', 'OPTIONS'])
 def ckupload():
     form = EditForm()
@@ -43,15 +70,10 @@ def ckupload():
     return response
 @main.route('/')
 def index():
-	page = request.args.get('page',1,type=int)
-	posts = Post.query.filter_by(classify_id=3).order_by(Post.timestamp.desc()).paginate(
-		page,per_page=current_app.config['FLASKY_POSTS_PER_PAGE_1'],error_out=False).items
-	news = Post.query.filter_by(classify_id=2).order_by(Post.timestamp.desc()).paginate(
-		page,per_page=current_app.config['FLASKY_POSTS_PER_PAGE_1'],error_out=False).items
-	essays = Post.query.filter_by(classify_id=1).order_by(Post.timestamp.desc()).paginate(
-		page,per_page=current_app.config['FLASKY_POSTS_PER_PAGE_2'],error_out=False).items
-	writings = Post.query.filter_by(classify_id=4).order_by(Post.timestamp.desc()).paginate(
-		page,per_page=current_app.config['FLASKY_POSTS_PER_PAGE_2'],error_out=False).items
+	posts = Post.query.filter_by(classify_id=3).order_by(Post.timestamp.desc()).limit(15)
+	news = Post.query.filter_by(classify_id=2).order_by(Post.timestamp.desc()).limit(15)
+	essays = Post.query.filter_by(classify_id=1).order_by(Post.timestamp.desc()).limit(11)
+	writings = Post.query.filter_by(classify_id=4).order_by(Post.timestamp.desc()).limit(11)
 	return render_template('index.html',posts = posts,news=news,essays=essays,writings=writings)
 @main.route('/page/<pageid>')
 def page(pageid):
@@ -69,6 +91,7 @@ def user(username):
 @login_required
 @admin_required
 def edit_profile_admin(id):
+	post = Post(title=form.title.data,body=form.ckeditor.data,author=current_user._get_current_object(),classify_id=form.classify.data,enclosure=form.enclosure.data)
 	user = User.query.get_or_404(id)
 	form = EditProfileAdminForm(user=user)
 	if form.validate_on_submit():
@@ -90,3 +113,21 @@ def edit_profile_admin(id):
 	form.location.data = user.location
 	form.about_me.data = user.about_me
 	return render_template('admin/edit_profile.html',form=form,user=user)
+@main.route('/posts')
+def posts():
+	posts = Post.query.filter_by(classify_id=3).order_by(Post.timestamp.desc()).all()
+	return render_template('contents.html',posts=posts)
+@main.route('/news')
+def news():
+	posts = Post.query.filter_by(classify_id=2).order_by(Post.timestamp.desc()).all()
+	return render_template('contents.html',posts=posts)
+
+@main.route('/essays')
+def essays():
+	posts = Post.query.filter_by(classify_id=1).order_by(Post.timestamp.desc()).all()
+	return render_template('contents.html',posts=posts)
+
+@main.route('/writings')
+def writings():
+	posts = Post.query.filter_by(classify_id=4).order_by(Post.timestamp.desc()).all()
+	return render_template('contents.html',posts=posts)

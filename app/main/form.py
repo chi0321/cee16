@@ -56,12 +56,13 @@ class CKEditor(object):
 
 class EditForm(Form, CKEditor):
 	classify = SelectField('Classify',coerce=int)
+	#enclosure = StringField('Enclousure',validators=[Required(),Length(1,128)])
 	title = StringField('Title',validators=[Required(),Length(1,128)])
 	ckeditor = TextAreaField()
 	submit = SubmitField('Submit')
 	def __init__(self,user,*args,**kwargs):
 		super(EditForm,self).__init__(*args,**kwargs)
-		self.classify.choices = [(classify.id,classify.name)for classify in Article.query.order_by(Article.name).all()]
+		self.classify.choices = [(classify.id,classify.name) for classify in Article.query.order_by(Article.name).all()]
 		self.user = user
 
 class NameForm(Form):

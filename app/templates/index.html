@@ -9,10 +9,10 @@
          <div id="featured_border" class="jcarousel-container">
             <div id="featured_wrapper" class="jcarousel-clip">
                <ul id="featured_images" class="jcarousel-list">
-                  <li><img src="static/images/slider_photo.jpg" width="965" height="280" alt="" /></li>
-                  <li><img src="static/images/slider_photo2.jpg" width="965" height="280" alt="" /></li>
-                  <li><img src="static/images/slider_photo3.jpg" width="965" height="280" alt="" /></li>
-                  <li><img src="static/images/slider_photo2.jpg" width="965" height="280" alt="" /></li>
+                  <li><img src="static/images/cee16/slide_photo.jpg" width="965" height="280" alt="" /></li>
+                  <li><img src="static/images/cee16/slide_photo2.jpg" width="965" height="280" alt="" /></li>
+                  <li><img src="static/images/cee16/slide_photo3.jpg" width="965" height="280" alt="" /></li>
+                  <li><img src="static/images/cee16/slide_photo4.jpg" width="965" height="280" alt="" /></li>
                </ul>
             </div>
             <div id="featured_positioner_desc" class="jcarousel-container">
@@ -20,29 +20,29 @@
                   <ul id="featured_desc" class="jcarousel-list">                 
                      <li>
                         <div>
-                           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                           <p>
                            </p>
                         </div>
                      </li> 
                      <li>
                         <div>
-                           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                           <p>
                            </p>
                         </div>
                      </li> 
                      <li>
                         <div>
-                           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                           <p>
                            </p>
                         </div>
                      </li>  
                      <li>
                         <div>
-                           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                           <p>
                            </p>
                         </div>
                      </li> 
-                  </ul>
+                  </u>
                </div>
 
             </div>
@@ -68,99 +68,111 @@
         <div class="home_section_left">
             <img src="static/images/icon1.gif" alt="" title="" class="home_section_icon" border="0">
                             
-                <h2 class="home_title">What we do</h2>
-                <div class="home_subtitle">Consectetur adipisicing elit</div>
+                <h2 class="home_title">教育班联系方式</h2>
+                <div class="home_subtitle">Education Class Contact Information</div>
     
                 <div class="home_section_thumb">
                 <img src="static/images/home_section_thumb1.jpg" alt="" title="" border="0">
                 </div>
-                <p><span>Lorem ipsum dolor sit ame</span><br>
-                Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. 
+                <p><span>主任：杨钰婷</span><br>
+                固话：025-84303125<br>手机：15850526525<br>邮箱：yangytin@163.com<br>地址：教育实验学院101综合办公室
                 <br> <br>
-                <span>Lorem ipsum dolor sit ame</span><br>
-                Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. 
+                助理：李鹏程（日常管理、班团建设）<br>手机：13260873625 分管班级：电信一班<br> 
+		助理：丁萌（学习事务、奖困贷补）<br>手机：15895895232 分管班级：电信二班<br>
+		助理：徐心怡（党团建设、心理健康）<br>手机：15319203799 分管班级：材料、机械班<br>
                 </p>
                 <a href="" class="more"><img src="static/images/more.gif" alt="" title="" border="0"></a>
         <div class="clear"></div>
         </div>
 	<div class="right_block">
-        <h2>POST</h2>
+        <h2>日常管理</h2>
                 <div class="home_news">
                 {% for post in posts %}
-		<a href="{{ url_for('main.page',pageid=post.id) }}">{{ post.title }}</a>
+		<a href="{{ url_for('main.page',pageid=post.id) }}"><font size="+0.5">
+		<div style="width:250px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">{{ post.title }}
+		</div></font></a>
 		{% endfor %}
                 </div>
             
+                <a href="{{ url_for('main.posts',page=post) }}')" class="more"><img src="static/images/more.gif" alt="" title="" border="0"></a>
             </div>
             
             <div class="right_block">
-            	<h2>NEWS</h2>
+            	<h2>公告通知</h2>
                 
                 <div class="home_news">
                 
 		{% for post in news %}
-		<a href="{{ url_for('main.page',pageid=post.id) }}">{{ post.title }}</a>
+		<a href="{{ url_for('main.page',pageid=post.id) }}"><font size="+0.5">
+		<div style="width:250px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">{{ post.title }}
+		</div></font></a>
 		{% endfor %}
 		</div>
        
+                <a href="{{ url_for('main.news',page=post) }}')" class="more"><img src="static/images/more.gif" alt="" title="" border="0"></a>
             
             </div>
         <div class="home_section_left">
             <img src="static/images/icon2.gif" alt="" title="" class="home_section_icon" border="0">
                             
-                <h2 class="home_title">Who we are</h2>
-                <div class="home_subtitle">Tempor incididunt ut labore</div>
+                <h2 class="home_title">主任寄语</h2>
+                <div class="home_subtitle">Message from the Director</div>
     
                 <div class="home_section_thumb">
                 <img src="static/images/home_section_thumb2.jpg" alt="" title="" border="0">
                 </div>
-                <p><span>Lorem ipsum dolor sit ame</span><br>
-                Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. 
+                <p><span>厚积薄发　久久为公</span><br>
+                一个人一辈子做一件事不难，难的是把一件事做到极致。同学们，无论将来你们从事什么职业，都不要让一时得失左右自己的思想，要静得下心、耐得住寂寞、坐得住冷板凳、下得了苦功夫，只有这样，产出的成功才能经得起时间的考验和历史的检验，才能藏之名山、传之后世。
                 <br> <br>
-                <span>Lorem ipsum dolor sit ame</span><br>
-                Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. 
                 </p>
                 <a href="" class="more"><img src="static/images/more.gif" alt="" title="" border="0"></a>
         <div class="clear"></div>
         </div>
         <div class="right_block">
-        <h2>ESSAY</h2>
+        <h2>便利指南</h2>
                 <div class="home_news">
                 {% for post in essays %}
-		<a href="{{ url_for('main.page',pageid=post.id) }}">{{ post.title }}</a>
+		<a href="{{ url_for('main.page',pageid=post.id) }}"><font size="+0.5">
+		<div style="width:250px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">{{ post.title }}
+		</div></font></a>
 		{% endfor %}
                 </div>
             
+                <a href="{{ url_for('main.essays',page=post) }}')" class="more"><img src="static/images/more.gif" alt="" title="" border="0"></a>
             </div>
             
             <div class="right_block">
-            	<h2>WRITING</h2>
+            	<h2>新闻动态</h2>
                 
                 <div class="home_news">
                 
 		{% for post in writings %}
-		<a href="{{ url_for('main.page',pageid=post.id) }}">{{ post.title }}</a>
+		<a href="{{ url_for('main.page',pageid=post.id) }}"><font size="+0.5">
+		<div style="width:250px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">{{ post.title }}
+		</div></font></a>
 		{% endfor %}
 		</div>
        
+                <a href="{{ url_for('main.writings',page=post) }}')" class="more"><img src="static/images/more.gif" alt="" title="" border="0"></a>
             
             </div>
         <div class="home_section_left">
             <img src="static/images/icon3.gif" alt="" title="" class="home_section_icon" border="0">
                             
-                <h2 class="home_title">Special services</h2>
-                <div class="home_subtitle">Sed do eiusmod tempor</div>
+                <h2 class="home_title">常用链接</h2>
+                <div class="home_subtitle">Common links</div>
     
                 <div class="home_section_thumb">
                 <img src="static/images/home_section_thumb3.jpg" alt="" title="" border="0">
                 </div>
-                <p><span>Lorem ipsum dolor sit ame</span><br>
-                Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. 
+                <p><br>
+		<div class="home_news">
+                <a href="http://www.njust.edu.cn/">南京理工大学</a>
+		<a href="http://jwc.njust.edu.cn/">教务处</a>
+		<a href="http://cee.njust.edu.cn/">教育实验学院</a>
+		<a href="http://202.119.81.175:866">学生奥兰</a>
+		</div>
                 <br> <br>
-                <span>Lorem ipsum dolor sit ame</span><br>
-                Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. 
-                <
-                <a href="" class="more"><img src="static/images/more.gif" alt="" title="" border="0"></a>
         <div class="clear"></div>
         </div>
         
@@ -179,11 +191,7 @@
         
         	<div class="footer_links">
                 <a class="current" href="index.html" title="">Home</a>
-                <a href="#" title="">About Company</a>
-                <a href="#" title="">Projects</a>
-                <a href="#" title="">Clients</a>
-                <a href="#" title="">Testimonials</a>
-                <a href="contact.html" title="">Contact</a>            
+                <a href="#" title="">Contact</a>            
             </div>
         </div>
       

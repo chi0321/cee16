@@ -1,6 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
+<meta name="baidu-site-verification" content="Tg2MIxHRY1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>教育实验学院2016级 - CEE</title>
 <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css',_external=True) }}" media="screen" />
@@ -10,37 +10,32 @@
 <script type="text/javascript" src="{{ url_for('static',filename='js/jquery.easing.js',_external=True) }}"></script>
 <script type="text/javascript" src="{{ url_for('static',filename='js/jquery.scripts.js',_external=True) }}"></script>
 </head>
-
+<body>
 {% block body %}
 <div id="wrap">
     <div class="top_corner"></div>
     <div id="main_container">
     
         <div id="header">
-            <div id="logo"><a href="index.html"><img src="{{ url_for('static',filename='images/logo.png',_external=True) }}" alt="" title="" border="0" /></a></div>
-            
+            <div id="logo"><a href="index.html"><img src="{{ url_for('static',filename='images/logo.png',_external=True) }}" alt="" title="" border="0" /></a></div><br/>
+		<div id="titletitle"><h3><font size="+2">南京理工大学教育实验学院2016级</font></h3>
+				<h4>College of Elite Education of NJUST,2016</h4><br>
+				</div> 
             <a href="make-a-donation.html" class="make_donation"></a>
-            
-            <div id="menu">
+            <h6>修身成人　奋斗成功</h6>
+{% if current_user.is_administrator() %}
+		<div id="menu">
                 <ul>                                                                                            
                     <li><a class="current" href="{{ url_for('main.index') }}" title="">主页</a></li>
-		{% if current_user.is_authenticated %}
-                    <li><a href="#" title="">Profile</a></li>
-		{% endif %}
-                    <li><a href="#" title="">test1</a></li>
-                    <li><a href="#" title="">test2</a></li>
-                    <li><a href="#" title="">test3</a></li>
-		{% if current_user.is_authenticated %}
 		    <li><a href="{{ url_for('auth.logout') }}" title="">Log Out</a></li>
-		{% else %}
-                    <li><a href="{{ url_for('auth.login') }}" title="">Log In</a></li>
-		{% endif %}
-		{% if current_user.is_administrator() %}
 		    <li><a href="{{ url_for('main.edit_admin') }}" title="">Edit</a></li>
-		{% endif %}
+
                 </ul>
-            </div>
-            
-        
+            </div>   
         </div>
+{% endif %}   
+
 {% endblock %}
+</body>
+
+</html>
